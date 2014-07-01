@@ -27,14 +27,6 @@ python -m SimpleHTTPServer $PORT &
 cd $temp_dir
 echo "Temp dir: $temp_dir"
 
-echo "Installing libgd"
-curl -L "https://bitbucket.org/libgd/gd-libgd/downloads/libgd-2.1.0.tar.gz"
-(
-	cd libgd-2.1.0
-	./configure --prefix=/tmp/libgd
-	make install
-)
-
 echo "Downloading $nginx_tarball_url"
 curl -L $nginx_tarball_url | tar xzv
 
