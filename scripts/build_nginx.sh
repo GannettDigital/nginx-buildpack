@@ -27,6 +27,14 @@ python -m SimpleHTTPServer $PORT &
 cd $temp_dir
 echo "Temp dir: $temp_dir"
 
+echo "Installing libgd"
+curl -L "https://bitbucket.org/libgd/gd-libgd/downloads/libgd-2.1.0.tar.gz"
+(
+	cd libgd-2.1.0
+	./configure --prefix=/tmp/libgd
+	make install
+)
+
 echo "Downloading $nginx_tarball_url"
 curl -L $nginx_tarball_url | tar xzv
 
@@ -40,6 +48,7 @@ echo "Downloading $headers_more_nginx_module_url"
 	cd nginx-${NGINX_VERSION}
 	./configure \
 		--with-pcre=pcre-${PCRE_VERSION} \
+		--with-http_image_filter_module \
 		--prefix=/tmp/nginx \
 		--add-module=/${temp_dir}/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}
 	make install
